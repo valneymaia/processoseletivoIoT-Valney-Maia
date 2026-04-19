@@ -3,14 +3,13 @@ import time
 import network
 import urequests
 import dht
-import sys 
+import sys  
 
 # Configurações de Rede e Telegram
 WIFI_SSID = "Wokwi-GUEST"
 WIFI_PASSWORD = ""
-
-
-
+BOT_TOKEN = "xxxx"
+CHAT_ID = "xxxx"
 
 # Configuração dos Pinos de Saída
 buzzer = machine.Pin(18, machine.Pin.OUT)
@@ -50,10 +49,6 @@ class MiniLCD:
 
 # --- FUNÇÃO DE ENVIAR MENSAGEM DO TELEGRAM ---
 def send_telegram_msg(msg):
-    if not BOT_TOKEN or not CHAT_ID:
-        print("[Telegram] Credenciais nao configuradas. Mensagem nao enviada.")
-        return
-
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     payload = '{"chat_id": "' + CHAT_ID + '", "text": "' + msg + '"}'
     headers = {'Content-Type': 'application/json'}
@@ -76,7 +71,6 @@ while not wlan.isconnected():
     print(".", end="")
 
 print("Teste")
-
 print("Conectado ao WiFi!")
 
 lcd.clear()
