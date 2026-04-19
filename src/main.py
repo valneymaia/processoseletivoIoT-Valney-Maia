@@ -8,8 +8,8 @@ import sys
 # Configurações de Rede e Telegram
 WIFI_SSID = "Wokwi-GUEST"
 WIFI_PASSWORD = ""
-BOT_TOKEN = "xxxx"
-CHAT_ID = "xxxx"
+BOT_TOKEN = ""
+CHAT_ID = ""
 
 # Configuração dos Pinos de Saída
 buzzer = machine.Pin(18, machine.Pin.OUT)
