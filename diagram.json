@@ -71,7 +71,7 @@
     [ "esp:VIN", "ring1:VCC", "red", [] ],
     [ "esp:GND.2", "ring1:GND", "black", [] ],
     [ "esp:D22", "ring1:DIN", "orange", [] ],
-    [ "esp:GND.3", "bb1:17b.j", "black", [] ],
+    [ "esp:GND.1", "bb1:17b.j", "black", [] ],
     [ "esp:RX2", "bb1:3b.j", "green", [] ],
     [ "esp:TX2", "bb1:7b.j", "red", [] ],
     [ "esp:D19", "bb1:11b.j", "yellow", [] ],
