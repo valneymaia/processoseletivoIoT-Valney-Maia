@@ -342,8 +342,8 @@ Loop Principal (não-bloqueante)
 Interação entre componentes:
 
 - **Entradas:** ADC de gás (GPIO34), DHT22 (GPIO4), PIR (GPIO13)
-- **Saídas locais:** buzzer (GPIO18), LED verde (GPIO16), LED vermelho (GPIO17), LED amarelo (GPIO19), relé de gás (GPIO26), anel NeoPixel (GPIO25)
-- **Interface:** LCD I2C (SCL GPIO22, SDA GPIO21)
+- **Saídas locais:** buzzer (GPIO18), LED verde (GPIO16), LED vermelho (GPIO17), LED amarelo (GPIO19), relé de gás (GPIO23), anel NeoPixel (GPIO22)
+- **Interface:** LCD I2C (SCL GPIO32, SDA GPIO33)
 - **Comunicação externa:** API Telegram para alarmes e normalização
 
 ---
@@ -360,8 +360,8 @@ Interação entre componentes:
 | LED Verde | `led_g` | Indica estado normal do sistema (pino D16) |
 | LED Vermelho | `led_r` | Indica estado de alerta (pino D17) |
 | LED Amarelo | `led_y` | Indica aviso de umidade fora da faixa (pino D19) |
-| Relé | `relay1` | Simula acionamento de válvula de gás (pino D26) |
-| Anel NeoPixel (16 LEDs) | `ring1` | Sinalização visual intensa para gás/invasão (pino D25) |
+| Relé | `relay1` | Simula acionamento de válvula de gás (pino D23) |
+| Anel NeoPixel (16 LEDs) | `ring1` | Sinalização visual intensa para gás/invasão (pino D22) |
 | Buzzer | `bz1` | Alarme sonoro em situações de perigo (pino D18) |
 | Resistores 220Ω | `r1`, `r2`, `r3` | Limitação de corrente dos LEDs |
 | Mini Breadboard | `bb1` | Organização das conexões dos atuadores |
