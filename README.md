@@ -405,7 +405,29 @@ O sistema funciona conforme esperado na simulação do Wokwi:
 
 ---
 
-## 6️⃣ Comentários Adicionais
+## 6️⃣ Custo Estimado para Implementação Real
+ 
+Valores aproximados considerando compras no MercadoLivre (vendedores mais baratos):
+ 
+| Componente | Preço Aprox. |
+|---|---|
+| ESP32 DevKit V1 | R$ 25,00 |
+| Sensor DHT22 (temp + umidade) | R$ 10,00 |
+| Sensor MQ-2 (gás/fumaça) | R$ 8,00 |
+| Sensor PIR HC-SR501 (movimento) | R$ 6,00 |
+| Display LCD 2004 I2C | R$ 18,00 |
+| Buzzer ativo 5V | R$ 2,00 |
+| LEDs + resistores | R$ 3,00 |
+| Protoboard + jumpers | R$ 10,00 |
+| Fonte 5V | R$ 0,00 *(carregador USB reutilizado)* |
+ 
+**Total estimado: ~R$ 82,00 a 100,00**
+ 
+> 💡 Kits ESP32 no MercadoLivre já incluem protoboard, jumpers, LEDs e resistores por R$ 45–55, reduzindo o custo total para menos de R$ 100,00.
+
+---
+
+## 7️⃣ Comentários Adicionais
 
 **Dificuldades encontradas:**  
 O principal desafio foi o fluxo de build do projeto. O Wokwi com MicroPython depende de um arquivo `fs.bin` (sistema de arquivos LittleFS) para carregar o `main.py` na simulação. O repositório base não incluía esse arquivo, o que exigiu a criação de um script auxiliar (`build_fs.py`) para empacotar os arquivos do `src/` no binário antes de cada execução local.
