@@ -8,6 +8,7 @@ WORKDIR "/"
 
 # RUN mkdir -p /fs
 COPY src/main.py /main.py
+COPY src/build_fs.py /build_fs.py
 # COPY boot.py /boot.py
 
 RUN git clone https://github.com/earlephilhower/mklittlefs.git && \

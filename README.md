@@ -109,6 +109,15 @@ Este repositório inclui um Dev Container, garantindo um ambiente padronizado.
 
 > ➡️ Todas as dependências serão instaladas automaticamente.
 
+### 4️⃣ Atualizações de Ambiente (Documentação)
+
+As seguintes alterações foram aplicadas para suportar a geração da imagem de filesystem:
+
+- No Dockerfile [Dockerfile](Dockerfile), foi adicionada a cópia do script [src/build_fs.py](src/build_fs.py) para dentro da imagem com `COPY src/build_fs.py /build_fs.py`.
+- No arquivo de dependências [requirements.txt](requirements.txt), foi adicionada a biblioteca `littlefs-python`.
+
+Essas mudanças garantem que o script de build do filesystem tenha a dependência necessária disponível no ambiente Python.
+
 ## 🔐 Passo 2 – Criando sua API Key do Wokwi
 
 A simulação do projeto será executada automaticamente via GitHub Actions, utilizando o Wokwi CLI.
@@ -297,6 +306,12 @@ O retorno inclui:
 ## Passo 1.2 – Geração do `fs.bin` (LittleFS)
 
 Para o Wokwi carregar os arquivos do `src/`, é necessário gerar o `fs.bin` antes da simulação local.
+
+Antes do build, instale as dependências Python do projeto (incluindo `littlefs-python`, usada pelo script de empacotamento LittleFS):
+
+```bash
+pip install -r requirements.txt
+```
 
 Execute na raiz do projeto:
 

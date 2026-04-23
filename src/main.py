@@ -45,25 +45,21 @@ ultimo_evento_ms = 0
 # ===========================================================
 # PINOS E COMPONENTES FÍSICOS
 # ===========================================================
-# Configuração do Buzzer para PWM (permite controle de frequência/tom)
 buzzer = machine.PWM(machine.Pin(18))
-buzzer.duty(0) # Inicia silenciado
+buzzer.duty(0) 
 
 led_green  = machine.Pin(16, machine.Pin.OUT)
 led_red    = machine.Pin(17, machine.Pin.OUT)
 led_yellow = machine.Pin(19, machine.Pin.OUT)
 
-# Relé da Válvula de Gás
 rele_gas   = machine.Pin(23, machine.Pin.OUT)
 rele_gas.value(0) 
 
-# Sensores
 sensor_gas  = machine.ADC(machine.Pin(34))
 sensor_gas.atten(machine.ADC.ATTN_11DB)
 sensor_temp = dht.DHT22(machine.Pin(4))
 sensor_pir  = machine.Pin(13, machine.Pin.IN)
 
-# Anel de LEDs
 NUM_LEDS = 16
 ring = neopixel.NeoPixel(machine.Pin(22), NUM_LEDS)
 
@@ -94,7 +90,6 @@ def set_leds_painel(verde, vermelho, amarelo):
 pir_irq_pendente = False
 
 def on_pir_rise(pin):
-    # ISR minimalista: apenas marca evento para processamento no loop.
     global pir_irq_pendente
     pir_irq_pendente = True
 
@@ -384,7 +379,6 @@ while True:
 
     # --- AÇÕES CONTÍNUAS (A mágica da Sirene Pulsante) ---
     if estado_atual == ESTADO_INVASAO or estado_atual == ESTADO_GAS:
-        # Alterna a variável entre True/False a cada ciclo do loop
         sirene_toggle = not sirene_toggle 
         if sirene_toggle:
             buzzer.freq(200) 
