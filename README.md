@@ -3,8 +3,8 @@
 
 Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
 
-Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD da etapa anterior.
-
+Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD da etapa anter
+> 🎯
 > 🎯 **Objetivo principal**  
 > Avaliar sua capacidade de **planejar, estruturar e desenvolver** uma solução funcional de sistemas embarcados, seguindo boas práticas de engenharia.
 
@@ -140,7 +140,7 @@ Para isso, você precisa gerar uma API Key.
 1. Vá em Settings
 2. Acesse Secrets and variables → Actions
 3. Clique em New repository secret
-4. Nome: WOKWI_API_KEY  // trocado por WOKWI_CLI_TOKEN devido ao ci.yml
+4.  Nome: `WOKWI_CLI_TOKEN` *(o arquivo `ci.yml` deste template usa este nome)*
 5. Valor: sua chave gerada
 6. Salve
 
@@ -156,7 +156,8 @@ Você deverá desenvolver um projeto de sistemas embarcados simulados, utilizand
 ```text
 /project
  ├── src/
- │   └── main.py        # Código principal do projeto
+ │   ├── main.py          # Código principal do firmware
+ │   └── build_fs.py      # Script para geração do fs.bin (LittleFS)
  ├── wokwi.toml         # Configuração da simulação
  ├── diagram.json       # Circuito no Wokwi
  └── README.md          # Explicação do seu projeto
@@ -272,21 +273,21 @@ Para receber os alertas do sistema no celular, é necessário configurar dois ca
 - BOT_TOKEN
 - CHAT_ID
 
-### 1️⃣ Criar o bot e obter o BOT_TOKEN
+###  Criar o bot e obter o BOT_TOKEN
 
 Abra o BotFather no Telegram e execute o comando /newbot.
 Ao final da criação, o Telegram retorna o token do bot.
 
 ![Criando bot no Telegram e obtendo BOT_TOKEN](assets/bot_telegram.png)
 
-### 2️⃣ Obter o CHAT_ID
+###  Obter o CHAT_ID
 
 Depois de criar o bot, envie uma mensagem para ele e recupere o seu chat id.
 Esse valor deve ser usado no campo CHAT_ID no código.
 
 ![Obtendo CHAT_ID no Telegram](assets/id_telegram.png)
 
-### 3️⃣ Sistema funcionando com alertas no bot
+###  Sistema funcionando com alertas no bot
 
 Com BOT_TOKEN e CHAT_ID preenchidos, o sistema passa a enviar notificações de monitoramento e alertas automaticamente.
 
@@ -347,11 +348,11 @@ Loop Principal (não-bloqueante)
     ├── Polling de comandos Telegram (STATUS ou /status)
     ├── Atualização do LCD (linha 0 = leituras em tempo real)
     └── Máquina de estados:
-            ├── INVASÃO   → sirene pulsante + anel vermelho + Telegram
-            ├── GÁS       → relé de gás + sirene pulsante + anel vermelho + Telegram
-            ├── TEMPERATURA (alta/baixa) → LED vermelho + Telegram
-            ├── UMIDADE (alta/baixa) → LED amarelo + aviso local
-            └── NORMAL    → LED verde + reset dos atuadores + Telegram de normalização
+            ├── GÁS         → relé fecha válvula + sirene pulsante + anel vermelho + Telegram
+            ├── TEMPERATURA → LED vermelho + Telegram (mensagem específica por alta/baixa)
+            ├── INVASÃO     → sirene pulsante + anel vermelho + Telegram
+            ├── UMIDADE     → LED amarelo + bip curto + aviso local
+            └── NORMAL      → LED verde + anel apagado + reset dos atuadores + Telegram
 ```
 
 Interação entre componentes:
@@ -407,7 +408,7 @@ Abaixo está o diagrama completo da montagem utilizada na simulação:
 
 O sistema funciona conforme esperado na simulação do Wokwi:
 
-- LCD exibe em tempo real gás, temperatura e umidade
+- LCD exibe em tempo real gás (%), temperatura (°C) e umidade (%)
 - Potenciômetro simula variações do sensor de gás de forma contínua
 - Ao ultrapassar 55% de gás, o relé de gás é acionado, o anel fica vermelho e a sirene entra em modo pulsante
 - Sensor PIR detecta movimento e aciona alerta de invasão quando não há alerta mais crítico ativo
@@ -438,7 +439,7 @@ Valores aproximados considerando compras no MercadoLivre (vendedores mais barato
  
 **Total estimado: ~R$ 82,00 a 100,00**
  
-> 💡 Kits ESP32 no MercadoLivre já incluem protoboard, jumpers, LEDs e resistores por R$ 45–55, reduzindo o custo total para menos de R$ 100,00.
+> 💡 Kits ESP32 no MercadoLivre já incluem protoboard, jumpers, LEDs e resistores por R$ 80–100, reduzindo o custo total para menos de R$ 100,00.
 
 ---
 
@@ -454,8 +455,8 @@ O principal desafio foi o fluxo de build do projeto. O Wokwi com MicroPython dep
 
 **Melhorias propostas:**
 - Automatizar geração do `fs.bin` no fluxo local (ex.: task do VS Code ou script único de run)
-- Ajustar calibração dos limiares de umidade e gás para diferentes ambientes
-- Incluir fila local de eventos com reenvio quando a rede voltar
+- Implementar fila local de eventos com reenvio automático quando a rede voltar
+- Ajustar limiares de umidade e gás por perfil de ambiente via arquivo de configuração
 
 **Principais aprendizados:**  
 A importância de entender o pipeline completo de um projeto embarcado, desde o build do firmware até a execução em CI/CD via GitHub Actions, e o valor de combinar supervisão local e remota em sistemas IoT.
@@ -477,4 +478,4 @@ Em caso de dúvidas:
 - Utilize os canais oficiais para contato com os instrutores
 
 Boa sorte no processo seletivo.  
-Mostre sua capacidade de pensar como um engenheiro de sistemas embarcados.
+Mostre sua capacidade de pensar como um engenheiro de sistemas embarcados.Este relatório faz parte da avaliação técnica.  

@@ -75,14 +75,12 @@ def ligar_anel_vermelho():
     ring.write()
 
 def bip_curto():
-    """Som rápido para alertas menores ou inicialização"""
     buzzer.freq(1000) 
     buzzer.duty(10)  
     time.sleep_ms(150)
     buzzer.duty(0)    
 
 def set_leds_painel(verde, vermelho, amarelo):
-    """Controla os 3 LEDs da protoboard de uma vez"""
     led_green.value(verde)
     led_red.value(vermelho)
     led_yellow.value(amarelo)
@@ -237,7 +235,7 @@ print("Conectado ao WiFi!")
 
 
 lcd.puts("WiFi OK!", 0)
-set_leds_painel(1, 0, 0) # Verde quando conecta
+set_leds_painel(1, 0, 0) 
 send_telegram("🚀 Central Iniciada! [Painel, Sirene e Valvula OK]")
 send_telegram("💬 Envie STATUS para consultar o estado atual da central.")
 time.sleep_ms(1000)
@@ -309,7 +307,6 @@ while True:
     t_str = str(temperatura_atual)[:4]
     lcd.puts(f"G:{int(gas)}% T:{t_str}C U:{int(umidade_atual)}%", 0)
 
-    # 5. Máquina de estados
     novo_estado = estado_atual
 
     if gas > LIMIAR_GAS_ALTO:
@@ -326,7 +323,7 @@ while True:
           and not pir_confirmado):
         novo_estado = ESTADO_NORMAL
 
-    # --- TRANSIÇÕES (Executam 1x quando muda de estado) ---
+    # --- TRANSIÇÕES ---
     if novo_estado != estado_atual:
         estado_anterior = estado_atual
         estado_atual    = novo_estado
@@ -377,7 +374,6 @@ while True:
             if estado_anterior != ESTADO_NORMAL:
                 send_telegram("✅ Sistema normalizado.")
 
-    # --- AÇÕES CONTÍNUAS (A mágica da Sirene Pulsante) ---
     if estado_atual == ESTADO_INVASAO or estado_atual == ESTADO_GAS:
         sirene_toggle = not sirene_toggle 
         if sirene_toggle:
