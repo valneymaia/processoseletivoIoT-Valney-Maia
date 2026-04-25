@@ -292,6 +292,9 @@ Esse valor deve ser usado no campo CHAT_ID no código.
 
 Com BOT_TOKEN e CHAT_ID preenchidos, o sistema passa a enviar notificações de monitoramento e alertas automaticamente.
 
+BOT_TOKEN     = "xxxxxxxxxxxxxxxx"
+CHAT_ID       = "xxxxxxxxxxxxxx"
+
 Também é possível consultar o estado atual em tempo real enviando `STATUS` (ou `/status`) para o bot no Telegram.
 
 
