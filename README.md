@@ -3,7 +3,8 @@
 
 Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
 
-Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD da etapa anter
+Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD anterior.
+
 > 🎯
 > 🎯 **Objetivo principal**  
 > Avaliar sua capacidade de **planejar, estruturar e desenvolver** uma solução funcional de sistemas embarcados, seguindo boas práticas de engenharia.
@@ -253,7 +254,7 @@ O sistema monitora continuamente três variáveis críticas do ambiente: **conce
 
 🎥 Demonstração em Vídeo
 Vídeo de demonstração do projeto em funcionamento:
-https://youtu.be/c7x9dHemi2E
+https://youtu.be/CL3ydz_kjc0
 
 Funcionamento em alto nível:
 
@@ -303,6 +304,26 @@ O retorno inclui:
 - último evento crítico com tempo decorrido (ex.: "INVASAO DETECTADA (ha 8s)")
 
 ![Sistema rodando com bot Telegram](assets/Bot.png)
+
+###  Comandos Disponíveis do Bot
+
+A central oferece múltiplos comandos para consulta de estado e métricas específicas:
+
+| Comando | Descrição |
+|---|---|
+| `/status` | Resumo completo do sistema (estado, leituras, eventos) |
+| `/temperatura` | Retorna somente a temperatura atual |
+| `/umidade` | Retorna somente a umidade atual |
+| `/gas` | Retorna somente o nível de gás em % |
+| `/movimento` | Retorna presença de movimento (SIM ou NAO) |
+| `/estado` | Retorna apenas o estado lógico (NORMAL, GAS, INVASAO, TEMPERATURA, UMIDADE) |
+| `/wifi` | Retorna status da conexão Wi-Fi |
+| `/evento` | Retorna o último evento crítico com tempo decorrido |
+| `/help` | Lista todos os comandos disponíveis |
+
+A primeira vez que a central inicia, envia automaticamente uma mensagem indicando que o usuário deve enviar `/help` para descobrir todos os comandos.
+
+![Comandos Disponíveis](assets/image.png)
 
 ## Passo 1.2 – Geração do `fs.bin` (LittleFS)
 
@@ -477,5 +498,6 @@ Em caso de dúvidas:
 - Analise os logs das GitHub Actions
 - Utilize os canais oficiais para contato com os instrutores
 
-Boa sorte no processo seletivo.  
-Mostre sua capacidade de pensar como um engenheiro de sistemas embarcados.Este relatório faz parte da avaliação técnica.  
+Boa sorte no processo seletivo.
+
+Mostre sua capacidade de pensar como um engenheiro de sistemas embarcados.  

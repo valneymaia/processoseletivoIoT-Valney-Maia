@@ -150,16 +150,20 @@ def registrar_evento(texto, tempo_atual):
     ultimo_evento_txt = texto
     ultimo_evento_ms = tempo_atual
 
+def formatar_ultimo_evento(tempo_atual):
+    if ultimo_evento_ms == 0:
+        return ultimo_evento_txt
+
+    segundos = int(time.ticks_diff(tempo_atual, ultimo_evento_ms) / 1000)
+    if segundos < 0:
+        segundos = 0
+
+    return ultimo_evento_txt + " (ha " + str(segundos) + "s)"
+
 def montar_status(gas, temp, umid, movimento, tempo_atual):
     wifi_status = "OK" if wlan.isconnected() else "OFF"
     mov_status = "SIM" if movimento else "NAO"
-    if ultimo_evento_ms == 0:
-        evento_str = ultimo_evento_txt
-    else:
-        segundos = int(time.ticks_diff(tempo_atual, ultimo_evento_ms) / 1000)
-        if segundos < 0:
-            segundos = 0
-        evento_str = ultimo_evento_txt + " (ha " + str(segundos) + "s)"
+    evento_str = formatar_ultimo_evento(tempo_atual)
 
     return (
         "📊 STATUS\n"
@@ -171,6 +175,53 @@ def montar_status(gas, temp, umid, movimento, tempo_atual):
         + "WiFi: " + wifi_status + "\n"
         + "Ultimo evento: " + evento_str
     )
+
+def montar_ajuda():
+    return (
+        "Comandos disponiveis:\n"
+        + "/status - resumo completo\n"
+        + "/temperatura - temperatura atual\n"
+        + "/umidade - umidade atual\n"
+        + "/gas - nivel de gas\n"
+        + "/movimento - movimento atual\n"
+        + "/estado - estado da central\n"
+        + "/wifi - status da conexao\n"
+        + "/evento - ultimo evento critico\n"
+        + "/help - listar comandos"
+    )
+
+def despachar_comando(cmd, args, gas, temp, umid, movimento, tempo_atual):
+    wifi_status = "OK" if wlan.isconnected() else "OFF"
+    mov_status = "SIM" if movimento else "NAO"
+
+    if cmd == "COMANDOS" or cmd == "HELP":
+        return montar_ajuda()
+
+    if cmd == "STATUS":
+        return montar_status(gas, temp, umid, movimento, tempo_atual)
+
+    if cmd == "TEMPERATURA":
+        return "Temperatura atual: " + str(round(temp, 1)) + "C"
+
+    if cmd == "UMIDADE":
+        return "Umidade atual: " + str(int(umid)) + "%"
+
+    if cmd == "GAS":
+        return "Nivel de gas: " + str(int(gas)) + "%"
+
+    if cmd == "MOVIMENTO":
+        return "Movimento agora: " + mov_status
+
+    if cmd == "ESTADO":
+        return "Estado atual: " + nome_estado(estado_atual)
+
+    if cmd == "WIFI":
+        return "WiFi: " + wifi_status
+
+    if cmd == "EVENTO":
+        return "Ultimo evento: " + formatar_ultimo_evento(tempo_atual)
+
+    return "Comando nao reconhecido. Use /help para ver os comandos disponiveis."
 
 def processar_comandos_telegram(gas, temp, umid, movimento, tempo_atual):
     global last_update_id
@@ -211,9 +262,17 @@ def processar_comandos_telegram(gas, temp, umid, movimento, tempo_atual):
         if not texto:
             continue
 
-        cmd = texto.upper()
-        if cmd == "STATUS" or cmd.startswith("/STATUS"):
-            send_telegram(montar_status(gas, temp, umid, movimento, tempo_atual))
+        partes = texto.split()
+        cmd = partes[0].upper()
+        args = partes[1:]
+
+        if cmd.startswith("/"):
+            cmd = cmd[1:]
+        cmd = cmd.split("@")[0]
+
+        resposta = despachar_comando(cmd, args, gas, temp, umid, movimento, tempo_atual)
+        if resposta:
+            send_telegram(resposta)
 
 # ===========================================================
 # BOOT DA CENTRAL
@@ -238,6 +297,7 @@ lcd.puts("WiFi OK!", 0)
 set_leds_painel(1, 0, 0) 
 send_telegram("🚀 Central Iniciada! [Painel, Sirene e Valvula OK]")
 send_telegram("💬 Envie STATUS para consultar o estado atual da central.")
+send_telegram("💬 Envie COMANDOS ou HELP para listar os comandos disponiveis.")
 time.sleep_ms(1000)
 lcd.clear()
 
