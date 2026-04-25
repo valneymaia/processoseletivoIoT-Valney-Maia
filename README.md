@@ -252,7 +252,8 @@ O projeto é uma **central de monitoramento ambiental residencial** embarcada, s
 
 O sistema monitora continuamente três variáveis críticas do ambiente: **concentração de gás**, **temperatura** e **presença de movimento**. Quando qualquer condição de risco é detectada, aciona alertas visuais (LEDs), sonoros (buzzer), exibe mensagens no display LCD e envia notificações automáticas via Telegram Bot. Quando as condições voltam ao normal, o sistema se autorrecupera e normaliza todos os atuadores.
 
-🎥 Demonstração em Vídeo
+##🎥 Demonstração em Vídeo
+
 Vídeo de demonstração do projeto em funcionamento:
 https://youtu.be/CL3ydz_kjc0
 
